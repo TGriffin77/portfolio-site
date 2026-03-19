@@ -1,7 +1,7 @@
 import './App.css'
 import Project from './components/Project';
 
-import Thomas from "./assets/thomas.webp";
+import Thomas from "./assets/thomas2.webp";
 
 export default function App() {
   return (
@@ -19,27 +19,33 @@ export default function App() {
         <div className="fixed inset-0 opacity-[0.03] pointer-events-none -z-5 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"/>
         
         {/* Content */}
-        <main className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-18 lg:py-24 font-inter text-white">
+        <main className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-18 lg:py-24 font-inter text-white">
             {/* Header */}
-            <div className="flex flex-col-reverse items-center sm:flex-row gap-8 mb-12">
+            <div className="flex flex-col-reverse items-center sm:flex-row gap-8 mb-16">
               <img src={Thomas} alt="Picture of Thomas" className="w-32 h-32 rounded-full mt-6 self-center sm:self-start"/>
               <div className="flex flex-col">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Hey, I am Thomas!</h1>
-                <span className="text-sm sm:text-md lg:text-lg text-neutral-500 text-center sm:text-left">Software Engineer • CS Student • AI & Finance Enthuasist</span>
+                <span className="text-sm sm:text-md lg:text-lg text-neutral-400 text-center sm:text-left">Software Engineer • CS Student • AI & Finance Enthuasist</span>
               </div>
               
             </div>
 
             
+
             {/* Currently */}
+            <h2 className="font-bold text-sm text-neutral-400 mb-4">CURRENTLY</h2>
+            <p className="text-sm text-neutral-400 mb-16">Enhanching my skills in backend development and AI integration to seek employment in the tech industry post-graduation.</p>
 
             {/* Projects */}
+            <h2 className="font-bold text-sm text-neutral-400 mb-8">RECENT PROJECTS</h2>
             <Project title="Website" description="A responsive website built with React and Tailwind CSS." link="https://github.com/TGriffin77" skills={["React", "Tailwind CSS"]} />
 
 
             {/* Education */}
+            <h2 className="font-bold text-sm text-neutral-400 mb-8 mt-16">EDUCATION</h2>
 
             {/* Tech Skills */}
+            <h2 className="font-bold text-sm text-neutral-400 mb-8 mt-16">TECHNICAL SKILLS</h2>
 
           </main>
       </div>
