@@ -1,6 +1,8 @@
 import './App.css'
 import Project from './components/Project';
 
+import Thomas from "./assets/thomas.webp";
+
 export default function App() {
   return (
       <div className="relative min-h-screen">
@@ -19,15 +21,20 @@ export default function App() {
         {/* Content */}
         <main className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-18 lg:py-24 font-inter text-white">
             {/* Header */}
-            <div className="flex flex-col">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Hey, I am Thomas!</h1>
-              <span className="text-sm sm:text-md lg:text-lg text-neutral-500 text-center sm:text-left">Software Engineer • CS Student • AI Enthuasist</span>
+            <div className="flex flex-col-reverse items-center sm:flex-row gap-8 mb-12">
+              <img src={Thomas} alt="Picture of Thomas" className="w-32 h-32 rounded-full mt-6 self-center sm:self-start"/>
+              <div className="flex flex-col">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Hey, I am Thomas!</h1>
+                <span className="text-sm sm:text-md lg:text-lg text-neutral-500 text-center sm:text-left">Software Engineer • CS Student • AI & Finance Enthuasist</span>
+              </div>
+              
             </div>
+
             
             {/* Currently */}
 
             {/* Projects */}
-            <Project title="" description="" link="" skills={[]} />
+            <Project title="Website" description="A responsive website built with React and Tailwind CSS." link="https://github.com/TGriffin77" skills={["React", "Tailwind CSS"]} />
 
 
             {/* Education */}
