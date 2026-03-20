@@ -15,7 +15,7 @@ export default function Project (props: ProjectProps) {
     }
 
     return (
-        <div className="bg-[#121212]/75 backdrop-blur-md border border-neutral-950/10 rounded-[15px] p-6 hover:-translate-y-0.5 hover:scale-101 transition-all duration-300">
+        <div className="bg-[#121212]/75 backdrop-blur-md shadow-lg border border-neutral-950/10 rounded-[15px] p-6 hover:-translate-y-0.5 hover:scale-101 transition-all duration-300">
             <h3 className="text-xl font-bold text-white">{props.title}</h3>
             
             
