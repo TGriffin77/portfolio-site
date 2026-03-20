@@ -1,13 +1,39 @@
 import './App.css'
+import { useState, useEffect } from 'react';
 import Project from './components/Project';
 import Job from './components/Job';
 import { TechBlip } from './components/Blips';
-
+import projectAPI from './services/api';
+import type { Project as ProjectType } from './types/project';
 
 import Thomas from "./assets/thomas.webp";
 import UCF from "./assets/ucf.webp";
 
 export default function App() {
+  const [projects, setProjects] = useState<ProjectType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch projects on component mount
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const fetchedProjects = await projectAPI.fetchProjects();
+        setProjects(fetchedProjects);
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Failed to load projects';
+        setError(errorMessage);
+        console.error('Error loading projects:', errorMessage);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProjects();
+  }, []);
+
   return (
       <div className="relative min-h-screen">
 
@@ -42,7 +68,35 @@ export default function App() {
 
             {/* Projects */}
             <h2 className="font-bold text-sm text-neutral-400 mb-8">RECENT PROJECTS</h2>
-            <Project title="Website" description="A responsive website built with React and Tailwind CSS." link="https://github.com/TGriffin77" skills={["React", "Tailwind CSS"]} />
+            
+            {loading && (
+              <div className="p-8 text-center text-neutral-400">
+                <p>Loading projects...</p>
+              </div>
+            )}
+
+            {error && (
+              <div className="p-8 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400">
+                <p className="font-semibold">Error loading projects</p>
+                <p className="text-sm mt-1">{error}</p>
+              </div>
+            )}
+
+            {!loading && !error && projects.length === 0 && (
+              <div className="p-8 text-center text-neutral-400">
+                <p>No projects available yet.</p>
+              </div>
+            )}
+
+            {!loading && projects.map((project) => (
+              <Project 
+                key={project.id}
+                title={project.title} 
+                description={project.description} 
+                link={project.link} 
+                skills={project.skills} 
+              />
+            ))}
 
 
             {/* Education */}

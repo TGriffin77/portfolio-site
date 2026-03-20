@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  pocketbase:
+    build: .
+    container_name: portfolio-pocketbase
+    ports:
+      - "8090:8090"  # Main API server
+      - "8091:8091"  # Admin panel (automatic, PocketBase opens on 8091 relative to 8090)
+    volumes:
+      - pocketbase_data:/pb_data
+    environment:
+      - TZ=UTC
+    restart: unless-stopped
+
+volumes:
+  pocketbase_data:
+    driver: local
