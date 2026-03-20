@@ -1,7 +1,11 @@
 import './App.css'
 import Project from './components/Project';
+import Job from './components/Job';
+import { TechBlip } from './components/Blips';
 
-import Thomas from "./assets/thomas2.webp";
+
+import Thomas from "./assets/thomas.webp";
+import UCF from "./assets/ucf.webp";
 
 export default function App() {
   return (
@@ -34,7 +38,7 @@ export default function App() {
 
             {/* Currently */}
             <h2 className="font-bold text-sm text-neutral-400 mb-4">CURRENTLY</h2>
-            <p className="text-sm text-neutral-400 mb-16">Enhanching my skills in backend development and AI integration to seek employment in the tech industry post-graduation.</p>
+            <Job title="Student" company="University of Central Florida" image={UCF} duration="Expected Graduation: Dec. 2026" description="Enrolled at University of Central Florida for a Bachelor's of Science in Computer Science. Alongside education, I am also enhanching my skills in backend development and AI integration to seek employment in the tech industry post-graduation." />
 
             {/* Projects */}
             <h2 className="font-bold text-sm text-neutral-400 mb-8">RECENT PROJECTS</h2>
@@ -43,9 +47,49 @@ export default function App() {
 
             {/* Education */}
             <h2 className="font-bold text-sm text-neutral-400 mb-8 mt-16">EDUCATION</h2>
+            <Job title="Student" company="University of Central Florida" image={UCF} duration="Expected Graduation: Dec. 2026" description="Enrolled at University of Central Florida for a Bachelor's of Science in Computer Science." />
 
             {/* Tech Skills */}
             <h2 className="font-bold text-sm text-neutral-400 mb-8 mt-16">TECHNICAL SKILLS</h2>
+            <h3 className="text-sm font-bold text-white mb-8">Programming and Markdown Languages</h3>
+            <div className="flex flex-wrap gap-4">
+              <TechBlip text="Python" icon="logos:python" />
+              <TechBlip text="JavaScript" icon="logos:javascript" />
+              <TechBlip text="TypeScript" icon="logos:typescript-icon" />
+              <TechBlip text="Java" icon="logos:java" />
+              <TechBlip text="C++" icon="logos:c-plusplus" />
+              <TechBlip text="HTML" icon="logos:html-5" />
+              <TechBlip text="CSS" icon="logos:css-3" />
+              <TechBlip text="Markdown" icon="logos:markdown" />
+              <TechBlip text="SQL" icon="logos:postgresql" />
+              <TechBlip text="Golang" icon="logos:go" />
+            </div>
+            
+            <h3 className="text-sm font-bold text-white my-8">Frameworks and Libraries</h3>
+            <div className="flex flex-wrap gap-4">
+              <TechBlip text="React" icon="logos:react" />
+              <TechBlip text="Tailwind CSS" icon="logos:tailwindcss-icon" />
+              <TechBlip text="Node.js" icon="logos:nodejs-icon" />
+              <TechBlip text="Express.js" />
+              <TechBlip text="Next.js" icon="logos:nextjs-icon" />
+              <TechBlip text="Flask" icon="logos:flask" />
+              <TechBlip text="Pytorch" icon="logos:pytorch-icon" />
+              <TechBlip text="TensorFlow" icon="logos:tensorflow" />
+            </div>
+            <h3 className="text-sm font-bold text-white my-8">Tools and Platforms</h3>
+            <div className="flex flex-wrap gap-4">
+              <TechBlip text="Linux" icon="logos:linux-tux" />
+              <TechBlip text="Git" icon="logos:git-icon" />
+              <TechBlip text="GitHub" icon="logos:github-icon" />
+              <TechBlip text="VS Code" icon="logos:visual-studio-code" />
+              <TechBlip text="AWS" icon="logos:aws" />
+              <TechBlip text="Docker" icon="logos:docker-icon" />
+              <TechBlip text="Vercel" icon="logos:vercel-icon" />
+            </div>
+
+            {/* Contact & Socials */}
+
+            
 
           </main>
       </div>
