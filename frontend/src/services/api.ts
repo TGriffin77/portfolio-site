@@ -8,7 +8,7 @@ class ProjectAPI {
 
   constructor() {
     // Read API URL from environment variable, fallback to localhost
-    this.baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5173';
+    this.baseUrl = import.meta.env.VITE_API_URL || '';
     console.debug(`ProjectAPI initialized with baseUrl: ${this.baseUrl}`);
   }
 
