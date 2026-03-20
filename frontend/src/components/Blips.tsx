@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import BorderGlow from './BorderGlow'
 
 type ProjectBlipProps = {
     text: string;
@@ -19,12 +20,21 @@ function ProjectBlip(props: ProjectBlipProps) {
 
 function TechBlip(props: TechBlipProps) {
     return (
-        <div className="flex items-center bg-[#121212]/75 backdrop-blur-md border border-neutral-950/10 text-sm px-4 py-2 rounded-full">
-            <Icon icon={props.icon || "mdi:code-tags"} className="inline-block mr-2 text-neutral-400" />
-            <p className="text-sm">
-                {props.text}
-            </p>
-        </div>
+        <BorderGlow 
+        glowColor="200 80 70"
+        backgroundColor="#1a1a1a"
+        coneSpread={5}
+        edgeSensitivity={0}
+        colors={["#00c951","#00b8db","#ad46ff"]}
+        className="hover:scale-105 hover:-transform-y-0.5 transition-all duration-300"
+        >
+            <div className="flex items-center text-sm px-4 py-2">
+                <Icon icon={props.icon || "mdi:code-tags"} className="inline-block mr-2 text-neutral-400" />
+                <p className="text-sm">
+                    {props.text}
+                </p>
+            </div>
+        </BorderGlow>
         
     )
 }
