@@ -26,7 +26,7 @@ export default function Project (props: ProjectProps) {
                         <ProjectBlip key={index} text={skill} />
                     ))}
                 </div>
-                <button onClick={useLink} className="flex gap-2 items-center text-white border-2 border-neutral-800 text-lg rounded-xl p-2 hover:cursor-pointer hover:scale-105 hover:shadow-[0_0_16px_rgba(6,182,212,.4)] transition-all duration-300">
+                <button onClick={useLink} className="flex gap-2 items-center text-white border-2 border-neutral-800 text-sm rounded-xl p-2 hover:cursor-pointer hover:scale-105 hover:shadow-[0_0_16px_rgba(6,182,212,.4)] transition-all duration-300">
                     View Project
                     <svg height="24px" width="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="Interface / External_Link">
