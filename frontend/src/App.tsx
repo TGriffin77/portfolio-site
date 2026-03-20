@@ -127,6 +127,7 @@ export default function App() {
               <TechBlip text="Express.js" />
               <TechBlip text="Next.js" icon="logos:nextjs-icon" />
               <TechBlip text="Flask" icon="logos:flask" />
+              <TechBlip text="Pocket Base" icon="logos:pocket-base" />
               <TechBlip text="Pytorch" icon="logos:pytorch-icon" />
               <TechBlip text="TensorFlow" icon="logos:tensorflow" />
             </div>
@@ -139,6 +140,7 @@ export default function App() {
               <TechBlip text="AWS" icon="logos:aws" />
               <TechBlip text="Docker" icon="logos:docker-icon" />
               <TechBlip text="Vercel" icon="logos:vercel-icon" />
+              <TechBlip text="Jira" icon="logos:jira" />
             </div>
 
             {/* Contact & Socials */}
