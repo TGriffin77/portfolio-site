@@ -8,7 +8,6 @@ import type { Project as ProjectType } from './types/project';
 
 import Thomas from "./assets/thomas.webp";
 import UCF from "./assets/ucf.webp";
-import { Icon } from '@iconify/react';
 import SocialMedia from './components/SocialMedia';
 import Footer from './components/Footer';
 
