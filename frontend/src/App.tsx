@@ -6,7 +6,9 @@ import { TechBlip } from './components/Blips';
 import projectAPI from './services/api';
 import type { Project as ProjectType } from './types/project';
 
-import Thomas from "./assets/thomas.webp";
+import thomas128 from './assets/thomas-128w.webp';
+import thomas256 from './assets/thomas-256w.webp'
+
 import UCF from "./assets/ucf.webp";
 import SocialMedia from './components/SocialMedia';
 import Footer from './components/Footer';
@@ -76,7 +78,13 @@ export default function App() {
         <main className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-18 lg:py-24 font-inter text-white">
             {/* Header */}
             <div className="flex flex-col-reverse items-center sm:flex-row gap-8 mb-16">
-              <img src={Thomas} alt="Picture of Thomas" className="w-32 h-32 rounded-full mt-6 self-center sm:self-start"/>
+              <img 
+                src={thomas128}
+                alt="Picture of Thomas" 
+                className="w-32 h-32 rounded-full mt-6 self-center sm:self-start"
+                srcSet={`${thomas128} 1x ${thomas256} 2x`}
+                />
+                
               <div className="flex flex-col">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Hey, I am Thomas!</h1>
                 <span className="text-sm sm:text-md lg:text-lg text-neutral-400 text-center sm:text-left">Software Engineer • CS Student • AI & Finance Enthuasist</span>
