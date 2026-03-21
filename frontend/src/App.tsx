@@ -185,8 +185,8 @@ export default function App() {
               <div className="flex-1 flex flex-col gap-2 pt-4 sm:pt-0 items-center">
                 <p>Find me on:</p>
                 <div className="flex gap-2">
-                  <SocialMedia link="https://github.com/TGriffin77" icon="logos:github-icon" />
-                  <SocialMedia link="https://www.linkedin.com/in/thomasgriffinx/" icon="logos:linkedin-icon" />           
+                  <SocialMedia link="https://github.com/TGriffin77" ariaLabel="GitHub" icon="logos:github-icon" />
+                  <SocialMedia link="https://www.linkedin.com/in/thomasgriffinx/" ariaLabel="LinkedIn" icon="logos:linkedin-icon" />           
                 </div>
               </div>
             </div>
