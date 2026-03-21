@@ -2,17 +2,20 @@ version: '3.8'
 
 services:
   pocketbase:
-    build: .
+    image: ghcr.io/muchobien/pocketbase:latest # Multi-arch (AMD64/ARM64)
     container_name: portfolio-pocketbase
     ports:
-      - "8090:8090"  # Main API server
-      - "8091:8091"  # Admin panel (automatic, PocketBase opens on 8091 relative to 8090)
+      - "8090:8090"
     volumes:
       - pocketbase_data:/pb_data
     environment:
       - TZ=UTC
     restart: unless-stopped
+    # Internal command to ensure it listens to the Docker network
+    command:
+      - /pb/pocketbase
+      - serve
+      - --http=0.0.0.0:8090
 
 volumes:
   pocketbase_data:
-    driver: local
