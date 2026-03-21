@@ -125,7 +125,7 @@ export default function App() {
 
             {/* Education */}
             <h2 className="font-bold text-sm text-neutral-400 mb-8 mt-16">EDUCATION</h2>
-            <Job title="Student" company="University of Central Florida" image={UCF} duration="Expected Graduation: Dec. 2026" description="Enrolled at University of Central Florida for a Bachelor's of Science in Computer Science." />
+            <Job title="Bachelor's of Science in Computer Science" company="University of Central Florida" image={UCF} duration="Expected Graduation: Dec. 2026" description="Enrolled at University of Central Florida for a Bachelor's of Science in Computer Science." />
 
             {/* Tech Skills */}
             <h2 className="font-bold text-sm text-neutral-400 mb-8 mt-16">TECHNICAL SKILLS</h2>
