@@ -12,10 +12,7 @@ services:
       - TZ=UTC
     restart: unless-stopped
     # Internal command to ensure it listens to the Docker network
-    command:
-      - /pb/pocketbase
-      - serve
-      - --http=0.0.0.0:8090
+    command: ["serve", "--http=0.0.0.0:8090"]
 
 volumes:
   pocketbase_data:
