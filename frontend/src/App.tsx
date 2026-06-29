@@ -87,7 +87,7 @@ export default function App() {
                 
               <div className="flex flex-col">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Hey, I am Thomas!</h1>
-                <span className="text-sm sm:text-md lg:text-lg text-neutral-400 text-center sm:text-left">Software Engineer • CS Student • AI & Finance Enthuasist</span>
+                <span className="text-sm sm:text-md lg:text-lg text-neutral-400 text-center sm:text-left">Software Engineer • CS Student • AI Enthuasist</span>
               </div>
               
             </div>
