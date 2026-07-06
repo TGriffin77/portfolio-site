@@ -19,7 +19,7 @@ class ProjectAPI {
    */
   async fetchProjects(): Promise<Project[]> {
     try {
-      const url = `${this.baseUrl}/api/collections/projects/records`;
+      const url = `${this.baseUrl}/api/collections/projects/records?sort=-created`;
       console.debug(`Fetching projects from: ${url}`);
 
       const response = await fetch(url, {
