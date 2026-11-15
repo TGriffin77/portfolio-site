@@ -3,20 +3,21 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import './index.css'
 import PageLoader from './components/PageLoader'
+import RouteErrorPage from './components/RouteErrorPage'
 
 const App = lazy(() => import('./App'))
 
-let router = createBrowserRouter([
+const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
+    errorElement: <RouteErrorPage />,
     element: (
-    <Suspense fallback={<PageLoader />}>
-      <App />
-    </Suspense>
-    
-  ),
-  }
-]);
+      <Suspense fallback={<PageLoader />}>
+        <App />
+      </Suspense>
+    ),
+  },
+])
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
