@@ -1,6 +1,16 @@
 version: '3.8'
 
 services:
+  resume-projects-mcp:
+    build: ./mcp
+    container_name: portfolio-resume-projects-mcp
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - POCKETBASE_URL=https://www.thomasgriffin.dev
+    restart: unless-stopped
+
   pocketbase:
     image: ghcr.io/muchobien/pocketbase:latest # Multi-arch (AMD64/ARM64)
     container_name: portfolio-pocketbase
