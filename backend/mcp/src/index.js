@@ -9,6 +9,37 @@ const pocketBaseUrl = (process.env.POCKETBASE_URL || 'https://www.thomasgriffin.
 function createMcpServer() {
   const server = new McpServer({ name: 'resume-projects', version: '1.0.0' });
 
+  server.registerTool('list_experiences', {
+    title: 'List work experience',
+    description: 'Read Thomas Griffin’s work experience from PocketBase. Use alongside list_projects and list_technologies when tailoring a resume. Use only the recorded facts; do not infer unsupported accomplishments, metrics, or qualifications.',
+    inputSchema: {
+      query: z.string().optional().describe('Case-insensitive search across job titles, companies, and descriptions.'),
+      limit: z.number().int().min(1).max(500).optional().default(100).describe('Maximum number of matching experiences to return.'),
+    },
+    annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: true },
+  }, async ({ query, limit }) => {
+    try {
+      const records = [];
+      let page = 1;
+      while (true) {
+        const response = await fetch(`${pocketBaseUrl}/api/collections/experiences/records?sort=display_order,id&perPage=100&page=${page}`, { signal: AbortSignal.timeout(15000) });
+        if (!response.ok) throw new Error(`PocketBase returned HTTP ${response.status}`);
+        const data = await response.json();
+        records.push(...data.items);
+        if (page * data.perPage >= data.totalItems) break;
+        page++;
+      }
+      const q = query?.trim().toLowerCase();
+      const matches = records.filter((record) =>
+        !q || `${record.title} ${record.company} ${record.description}`.toLowerCase().includes(q));
+      const experiences = matches.slice(0, limit).map(({ id, title, company, duration, description, display_order }) =>
+        ({ id, title, company, duration, description, display_order }));
+      return { content: [{ type: 'text', text: JSON.stringify({ total: matches.length, experiences }, null, 2) }] };
+    } catch (error) {
+      return { isError: true, content: [{ type: 'text', text: `Unable to read work experience: ${error.message}` }] };
+    }
+  });
+
   server.registerTool('list_technologies', {
     title: 'List technical skills',
     description: 'Read Thomas Griffin’s technical skills from the technologies collection. Use alongside list_projects when tailoring a resume. A listed technology alone does not establish proficiency, years of experience, or project accomplishments.',
