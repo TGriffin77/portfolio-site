@@ -1,4 +1,4 @@
-name: Deploy Frontend
+name: Deploy Portfolio and MCP
 
 on:
   push:
@@ -30,3 +30,6 @@ jobs:
 
       - name: Deploy to Nginx
         run: rsync -a --delete frontend/dist/ /var/www/html/portfolio/
+
+      - name: Build and deploy resume projects MCP
+        run: docker compose -f backend/docker-compose.yml up -d --build resume-projects-mcp
