@@ -1,5 +1,4 @@
 import { createServer } from 'node:http';
-import { randomUUID } from 'node:crypto';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { z } from 'zod';
@@ -9,6 +8,39 @@ const pocketBaseUrl = (process.env.POCKETBASE_URL || 'https://www.thomasgriffin.
 
 function createMcpServer() {
   const server = new McpServer({ name: 'resume-projects', version: '1.0.0' });
+
+  server.registerTool('list_technologies', {
+    title: 'List technical skills',
+    description: 'Read Thomas Griffin’s technical skills from the technologies collection. Use alongside list_projects when tailoring a resume. A listed technology alone does not establish proficiency, years of experience, or project accomplishments.',
+    inputSchema: {
+      query: z.string().optional().describe('Case-insensitive search in technology names and categories.'),
+      category: z.string().optional().describe('Optional category to match, ignoring case.'),
+      limit: z.number().int().min(1).max(500).optional().default(100),
+    },
+    annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: true },
+  }, async ({ query, category, limit }) => {
+    try {
+      const records = [];
+      let page = 1;
+      while (true) {
+        const response = await fetch(`${pocketBaseUrl}/api/collections/technologies/records?sort=category,name&perPage=100&page=${page}`, { signal: AbortSignal.timeout(15000) });
+        if (!response.ok) throw new Error(`PocketBase returned HTTP ${response.status}`);
+        const data = await response.json();
+        records.push(...data.items);
+        if (page * data.perPage >= data.totalItems) break;
+        page++;
+      }
+      const q = query?.trim().toLowerCase();
+      const c = category?.trim().toLowerCase();
+      const matches = records.filter((record) =>
+        (!q || `${record.name} ${record.category}`.toLowerCase().includes(q)) &&
+        (!c || record.category.toLowerCase() === c));
+      const technologies = matches.slice(0, limit).map(({ id, name, category, icon }) => ({ id, name, category, icon }));
+      return { content: [{ type: 'text', text: JSON.stringify({ total: matches.length, technologies }, null, 2) }] };
+    } catch (error) {
+      return { isError: true, content: [{ type: 'text', text: `Unable to read technical skills: ${error.message}` }] };
+    }
+  });
 
   server.registerTool('list_projects', {
     title: 'List portfolio projects',

@@ -1,4 +1,5 @@
 import type { Project, PocketBaseResponse } from '../types/project';
+import type { Technology } from '../types/technology';
 
 /**
  * API client for communicating with PocketBase backend
@@ -10,6 +11,19 @@ class ProjectAPI {
     // Read API URL from environment variable, fallback to localhost
     this.baseUrl = import.meta.env.VITE_API_URL || '';
     console.debug(`ProjectAPI initialized with baseUrl: ${this.baseUrl}`);
+  }
+
+  async fetchTechnologies(): Promise<Technology[]> {
+    const technologies: Technology[] = [];
+    let page = 1;
+    while (true) {
+      const response = await fetch(`${this.baseUrl}/api/collections/technologies/records?sort=category,name&perPage=100&page=${page}`);
+      if (!response.ok) throw new Error(`Failed to fetch technologies: HTTP ${response.status}`);
+      const data: PocketBaseResponse<Technology> = await response.json();
+      technologies.push(...data.items);
+      if (page * data.perPage >= data.totalItems) return technologies;
+      page++;
+    }
   }
 
   /**

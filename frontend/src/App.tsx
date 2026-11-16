@@ -5,6 +5,7 @@ import Job from './components/Job';
 import { TechBlip } from './components/Blips';
 import projectAPI from './services/api';
 import type { Project as ProjectType } from './types/project';
+import type { Technology } from './types/technology';
 
 import thomas128 from './assets/thomas-128w.webp';
 import thomas256 from './assets/thomas-256w.webp'
@@ -18,6 +19,30 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [technologies, setTechnologies] = useState<Technology[]>([]);
+  const [technologiesLoading, setTechnologiesLoading] = useState(true);
+  const [technologiesError, setTechnologiesError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    projectAPI.fetchTechnologies()
+      .then((items) => { if (active) setTechnologies(items); })
+      .catch((err: unknown) => {
+        if (active) setTechnologiesError(err instanceof Error ? err.message : 'Failed to load technical skills');
+      })
+      .finally(() => { if (active) setTechnologiesLoading(false); });
+    return () => { active = false; };
+  }, []);
+
+  const categories = [...new Set(technologies.map((technology) => technology.category))];
+  const categoryOrder = ['Programming and Markdown Languages', 'Frameworks and Libraries', 'Tools and Platforms'];
+  categories.sort((a, b) => {
+    const rank = (category: string) => {
+      const index = categoryOrder.indexOf(category);
+      return index === -1 ? categoryOrder.length : index;
+    };
+    return rank(a) - rank(b) || a.localeCompare(b);
+  });
 
   // Fetch projects on component mount
   useEffect(() => {
@@ -138,44 +163,21 @@ export default function App() {
             {/* Tech Skills */}
             <h2 className="font-bold text-sm text-neutral-400 mb-8 mt-16">TECHNICAL SKILLS</h2>
             <div className="mb-32">
-              <h3 className="text-sm font-bold text-white my-8">Programming and Markdown Languages</h3>
-              <div className="flex flex-wrap gap-4">
-                <TechBlip text="Python" icon="logos:python" />
-                <TechBlip text="JavaScript" icon="logos:javascript" />
-                <TechBlip text="TypeScript" icon="logos:typescript-icon" />
-                <TechBlip text="Java" icon="logos:java" />
-                <TechBlip text="C++" icon="logos:c-plusplus" />
-                <TechBlip text="HTML" icon="logos:html-5" />
-                <TechBlip text="CSS" icon="logos:css-3" />
-                <TechBlip text="Markdown" icon="logos:markdown" />
-                <TechBlip text="SQL" icon="logos:postgresql" />
-                <TechBlip text="Golang" icon="logos:go" />
-              </div>
-              
-              <h3 className="text-sm font-bold text-white my-8">Frameworks and Libraries</h3>
-              <div className="flex flex-wrap gap-4">
-                <TechBlip text="React" icon="logos:react" />
-                <TechBlip text="Tailwind CSS" icon="logos:tailwindcss-icon" />
-                <TechBlip text="Node.js" icon="logos:nodejs-icon" />
-                <TechBlip text="Express.js" />
-                <TechBlip text="Next.js" icon="logos:nextjs-icon" />
-                <TechBlip text="Flask" icon="logos:flask" />
-                <TechBlip text="Pocket Base" icon="logos:pocket-base" />
-                <TechBlip text="Pytorch" icon="logos:pytorch-icon" />
-                <TechBlip text="TensorFlow" icon="logos:tensorflow" />
-              </div>
-
-              <h3 className="text-sm font-bold text-white my-8">Tools and Platforms</h3>
-              <div className="flex flex-wrap gap-4">
-                <TechBlip text="Linux" icon="logos:linux-tux" />
-                <TechBlip text="Git" icon="logos:git-icon" />
-                <TechBlip text="GitHub" icon="logos:github-icon" />
-                <TechBlip text="VS Code" icon="logos:visual-studio-code" />
-                <TechBlip text="AWS" icon="logos:aws" />
-                <TechBlip text="Docker" icon="logos:docker-icon" />
-                <TechBlip text="Vercel" icon="logos:vercel-icon" />
-                <TechBlip text="Jira" icon="logos:jira" />
-              </div>
+              {technologiesLoading && <p className="text-neutral-400">Loading technical skills...</p>}
+              {technologiesError && <p role="alert" className="text-red-400">{technologiesError}</p>}
+              {!technologiesLoading && !technologiesError && technologies.length === 0 && (
+                <p className="text-neutral-400">No technical skills available yet.</p>
+              )}
+              {categories.map((category) => (
+                <div key={category}>
+                  <h3 className="text-sm font-bold text-white my-8">{category}</h3>
+                  <div className="flex flex-wrap gap-4">
+                    {technologies.filter((technology) => technology.category === category).map((technology) => (
+                      <TechBlip key={technology.id} text={technology.name} icon={technology.icon} />
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
             
 
