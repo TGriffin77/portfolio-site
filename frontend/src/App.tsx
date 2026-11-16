@@ -2,6 +2,7 @@ import './App.css'
 import { useState, useEffect } from 'react';
 import Project from './components/Project';
 import Job from './components/Job';
+import ExperienceSection from './components/ExperienceSection';
 import { TechBlip } from './components/Blips';
 import projectAPI from './services/api';
 import type { Project as ProjectType } from './types/project';
@@ -122,6 +123,8 @@ export default function App() {
             {/* Currently */}
             <h2 className="font-bold text-sm text-neutral-400 mb-8">CURRENTLY</h2>
             <Job title="Student" company="University of Central Florida" image={UCF} duration="Expected Graduation: Dec. 2026" description="Enrolled at University of Central Florida for a Bachelor's of Science in Computer Science. Alongside education, I am also enhanching my skills in backend development and AI integration to seek employment in the tech industry post-graduation." />
+
+            <ExperienceSection />
 
             {/* Projects */}
             <h2 className="font-bold text-sm text-neutral-400 mb-8">RECENT PROJECTS</h2>

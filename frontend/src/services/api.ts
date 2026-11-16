@@ -1,5 +1,6 @@
 import type { Project, PocketBaseResponse } from '../types/project';
 import type { Technology } from '../types/technology';
+import type { Experience } from '../types/experience';
 
 /**
  * API client for communicating with PocketBase backend
@@ -22,6 +23,19 @@ class ProjectAPI {
       const data: PocketBaseResponse<Technology> = await response.json();
       technologies.push(...data.items);
       if (page * data.perPage >= data.totalItems) return technologies;
+      page++;
+    }
+  }
+
+  async fetchExperiences(): Promise<Experience[]> {
+    const experiences: Experience[] = [];
+    let page = 1;
+    while (true) {
+      const response = await fetch(`${this.baseUrl}/api/collections/experiences/records?sort=display_order,id&perPage=100&page=${page}`);
+      if (!response.ok) throw new Error(`Failed to fetch experience: HTTP ${response.status}`);
+      const data: PocketBaseResponse<Experience> = await response.json();
+      experiences.push(...data.items);
+      if (page * data.perPage >= data.totalItems) return experiences;
       page++;
     }
   }
